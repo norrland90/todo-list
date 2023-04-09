@@ -3,7 +3,6 @@ const form = document.querySelector('.form');
 const itemList = document.querySelector('.item-list');
 const itemInput = document.querySelector('.form-input');
 const priorityInput = document.querySelector('.priority-input');
-// const deleteButton = document.querySelectorAll('.delete-btn');
 
 // Functions
 function validateInput(item, priority) {
@@ -28,8 +27,8 @@ function addNewItem(e) {
   const newListItem = document.createElement('li');
   newListItem.classList = 'list-item';
 
-  const newCheckBox = createCheckbox('checkbox', 'fa-solid fa-check fa-sm');
-  newListItem.appendChild(newCheckBox);
+  const newCheckbox = createCheckbox('checkbox', 'fa-solid fa-check fa-sm');
+  newListItem.appendChild(newCheckbox);
 
   const newItemText = createItemText(
     'item-text-wrapper',
@@ -46,6 +45,8 @@ function addNewItem(e) {
   );
   newListItem.appendChild(newDeleteButton);
   itemList.appendChild(newListItem);
+
+  addItemToLocalStorage(newItem, newPriority);
 
   document.querySelector('.form-input').value = '';
   document.querySelector('.priority-input').value = 0;
@@ -100,12 +101,41 @@ function createDeleteButton(btnClass, iconClass) {
 }
 
 function removeItem(e) {
-  console.log(e.target);
   if (e.target.classList.contains('delete-btn')) {
     e.target.parentElement.remove();
+    removeItemFromStorage(
+      e.target.parentElement.querySelector('.item-text').textContent
+    );
   } else if (e.target.parentElement.classList.contains('delete-btn')) {
     e.target.parentElement.parentElement.remove();
+    removeItemFromStorage(
+      e.target.parentElement.parentElement.querySelector('.item-text')
+        .textContent
+    );
   }
+}
+
+function getItemsFromStorage() {
+  if (localStorage.getItem('items') === null) {
+    return [];
+  } else {
+    return JSON.parse(localStorage.getItem('items'));
+  }
+}
+
+function addItemToLocalStorage(item, priority) {
+  const itemsFromStorage = getItemsFromStorage();
+
+  itemsFromStorage.push([item, priority]);
+  localStorage.setItem('items', JSON.stringify(itemsFromStorage));
+}
+
+function removeItemFromStorage(item) {
+  const itemsFromStorage = getItemsFromStorage();
+  let newItemsFromStorage = itemsFromStorage.filter((i) => {
+    return i[0] !== item;
+  });
+  localStorage.setItem('items', JSON.stringify(newItemsFromStorage));
 }
 
 // Event Listeners
