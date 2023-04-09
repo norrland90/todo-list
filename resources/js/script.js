@@ -3,6 +3,7 @@ const form = document.querySelector('.form');
 const itemList = document.querySelector('.item-list');
 const itemInput = document.querySelector('.form-input');
 const priorityInput = document.querySelector('.priority-input');
+const checkbox = document.querySelector('.checkbox');
 const clearAll = document.querySelector('.clear');
 
 // Functions
@@ -159,8 +160,13 @@ function clearItemsFromStorage() {
   localStorage.setItem('items', JSON.stringify([]));
 }
 
+function toggleCheckbox() {
+  checkbox.classList.toggle('checked');
+}
+
 // Event Listeners
 form.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', removeItem);
 clearAll.addEventListener('click', clearAllItems);
+checkbox.addEventListener('click', toggleCheckbox);
 displayAllItems();
