@@ -3,6 +3,7 @@ const form = document.querySelector('.form');
 const itemList = document.querySelector('.item-list');
 const itemInput = document.querySelector('.form-input');
 const priorityInput = document.querySelector('.priority-input');
+const clearAll = document.querySelector('.clear');
 
 // Functions
 function validateInput(item, priority) {
@@ -138,6 +139,16 @@ function removeItemFromStorage(item) {
   localStorage.setItem('items', JSON.stringify(newItemsFromStorage));
 }
 
+function clearAllItems() {
+  itemList.innerHTML = '';
+  clearItemsFromStorage();
+}
+
+function clearItemsFromStorage() {
+  localStorage.setItem('items', JSON.stringify([]));
+}
+
 // Event Listeners
 form.addEventListener('submit', addNewItem);
 itemList.addEventListener('click', removeItem);
+clearAll.addEventListener('click', clearAllItems);
