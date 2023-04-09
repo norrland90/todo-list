@@ -6,6 +6,13 @@ const priorityInput = document.querySelector('.priority-input');
 const clearAll = document.querySelector('.clear');
 
 // Functions
+function displayAllItems() {
+  const itemsFromStorage = getItemsFromStorage();
+  itemsFromStorage.forEach((i) => {
+    addItemToDOM(i[0], i[1]);
+  });
+}
+
 function validateInput(item, priority) {
   if (item === '' || priority === '0') {
     alert('You must add and item and priority');
@@ -15,7 +22,7 @@ function validateInput(item, priority) {
   }
 }
 
-function addNewItem(e) {
+function onSubmit(e) {
   e.preventDefault();
 
   const newItem = itemInput.value;
@@ -25,6 +32,15 @@ function addNewItem(e) {
     return;
   }
 
+  addItemToDOM(newItem, newPriority);
+
+  addItemToLocalStorage(newItem, newPriority);
+
+  document.querySelector('.form-input').value = '';
+  document.querySelector('.priority-input').value = 0;
+}
+
+function addItemToDOM(newItem, newPriority) {
   const newListItem = document.createElement('li');
   newListItem.classList = 'list-item';
 
@@ -46,11 +62,6 @@ function addNewItem(e) {
   );
   newListItem.appendChild(newDeleteButton);
   itemList.appendChild(newListItem);
-
-  addItemToLocalStorage(newItem, newPriority);
-
-  document.querySelector('.form-input').value = '';
-  document.querySelector('.priority-input').value = 0;
 }
 
 function createCheckbox(divClass, iconClass) {
@@ -149,6 +160,7 @@ function clearItemsFromStorage() {
 }
 
 // Event Listeners
-form.addEventListener('submit', addNewItem);
+form.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', removeItem);
 clearAll.addEventListener('click', clearAllItems);
+displayAllItems();
