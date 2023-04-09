@@ -181,3 +181,18 @@ body {
 .checkbox.checked + p {
   text-decoration: line-through;
 }
+
+/* CLEAR ALL */
+
+.clear {
+  display: block;
+  margin-top: 2rem;
+  border: 0;
+  background-color: rgba(171, 26, 26, 0);
+  cursor: pointer;
+  color: rgb(171, 26, 26);
+}
+
+.clear:hover {
+  text-decoration: underline;
+}
