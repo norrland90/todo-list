@@ -5,6 +5,8 @@ const itemInput = document.querySelector('.form-input');
 const priorityInput = document.querySelector('.priority-input');
 const checkbox = document.querySelector('.checkbox');
 const clearAll = document.querySelector('.clear');
+const filterInput = document.querySelector('#filter-input');
+const filterPriority = document.querySelector('#priority-filter');
 
 // Functions
 function displayAllItems() {
@@ -93,7 +95,7 @@ function createItemText(
 
   const span = document.createElement('span');
   span.classList = priorityTextClass;
-  span.textContent = `priority ${priority}`;
+  span.textContent = `(priority ${priority})`;
 
   div.appendChild(p);
   div.appendChild(span);
@@ -164,9 +166,39 @@ function toggleCheckbox() {
   checkbox.classList.toggle('checked');
 }
 
+function filterByPriority(e) {
+  itemList.innerHTML = '';
+  const priority = filterPriority.value;
+  if (priority === '0') {
+    displayAllItems();
+  } else {
+    const itemsFromStorage = getItemsFromStorage();
+    itemsFromStorage.forEach((i) => {
+      if (i[1] === priority) {
+        addItemToDOM(i[0], i[1]);
+      }
+    });
+  }
+}
+
+function filterByInput(e) {
+  const text = e.target.value.toLowerCase();
+  const items = itemList.querySelectorAll('.list-item');
+  items.forEach((i) => {
+    const itemText = i.querySelector('.item-text').textContent.toLowerCase();
+    if (itemText.indexOf(text) !== -1) {
+      i.style.display = 'flex';
+    } else {
+      i.style.display = 'none';
+    }
+  });
+}
+
 // Event Listeners
 form.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', removeItem);
 clearAll.addEventListener('click', clearAllItems);
 checkbox.addEventListener('click', toggleCheckbox);
+filterPriority.addEventListener('input', filterByPriority);
+filterInput.addEventListener('keyup', filterByInput);
 displayAllItems();
