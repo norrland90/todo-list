@@ -1,0 +1,144 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* CUSTOM PROPERTIES */
+:root {
+  /* Colors */
+  --clr-primary: rgb(48, 83, 255);
+  --clr-secondary: rgb(154, 214, 249);
+  --clr-txt-dark: rgb(0, 0, 0);
+  --clr-txt-light: rgb(255, 255, 255);
+
+  /* Fonts */
+  --ft-family: 'Lato', sans-serif;
+  --fs-xxl: 4rem;
+  --fs-xl: 3rem;
+  --fs-l: 2rem;
+  --fs-m: 1rem;
+  --fs-s: 0.9rem;
+}
+
+/* GENERAL */
+
+body {
+  background-color: var(--clr-primary);
+  font-family: var(--ft-family);
+}
+
+.container {
+  max-width: 500px;
+  margin: 6rem auto 0 auto;
+}
+
+.main-heading {
+  margin-bottom: 2rem;
+
+  color: var(--clr-txt-light);
+  font-size: var(--fs-xl);
+  font-weight: 900;
+  letter-spacing: 0.2rem;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* MAIN FORM */
+.form {
+  background-color: var(--clr-txt-light);
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+}
+
+.form__input-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.priority-input:focus {
+  outline: none;
+  border: 2px solid var(--clr-primary);
+}
+
+::placeholder {
+  color: var(--clr-txt-dark);
+}
+
+.priority-input {
+  padding: 0.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  font-family: inherit;
+  color: var(--clr-txt-dark);
+}
+
+.add-btn {
+  padding: 0.5rem 2rem;
+  background-color: var(--clr-primary);
+  color: var(--clr-txt-light);
+  border: 0;
+  border-radius: 0.3rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ITEMS */
+
+.filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.item-container {
+  background-color: var(--clr-txt-light);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.filter {
+  margin-bottom: 2rem;
+}
+
+.item-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--clr-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  width: 2rem;
+  background-color: rgb(26, 35, 171);
+  border: 0;
+  border-radius: 0.3rem;
+  color: var(--clr-txt-light);
+  cursor: pointer;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="resources/css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/2eb8bd0a18.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Todo List</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1 class="main-heading">Todo</h1>
+        <form class="form" id="form">
+          <div class="form__input-container">
+            <input
+              type="text"
+              class="form-input"
+              id="form-input"
+              name="item"
+              placeholder="Enter todo"
+            />
+            <select name="priority" id="priority-input" class="priority-input">
+              <option value="0" selected hidden>Select Priority</option>
+              <option value="1">Priority 1</option>
+              <option value="2">Priority 2</option>
+              <option value="3">Priority 3</option>
+            </select>
+          </div>
+          <button class="add-btn" type="submit">Add</button>
+        </form>
+
+        <div class="item-container">
+          <div class="filter">
+            <input
+              type="text"
+              class="form-input"
+              id="filter-input"
+              placeholder="Search todo"
+            />
+            <select
+              name="priority-filter"
+              id="priority-filter"
+              class="priority-input"
+            >
+              <option value="0" selected hidden>Filter By Priority</option>
+              <option value="1">Priority 1</option>
+              <option value="2">Priority 2</option>
+              <option value="3">Priority 3</option>
+            </select>
+          </div>
+          <ul class="item-list">
+            <li class="list-item">
+              <p class="item-text">Code JS for 2 hours</p>
+              <button class="delete-btn">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </li>
+            <li class="list-item">
+              <p class="item-text">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo,
+                iusto?
+              </p>
+              <button class="delete-btn">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </li>
+            <li class="list-item">
+              <p class="item-text">Workout 60 min</p>
+              <button class="delete-btn">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <script src="resources/js/script.js"></script>
+  </body>
+</html>
