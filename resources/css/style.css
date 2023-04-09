@@ -106,9 +106,8 @@ body {
 
 /* ITEMS */
 
-.filter {
-  display: flex;
-  gap: 1rem;
+.item-list-empty {
+  font-style: italic;
 }
 
 .item-container {
@@ -116,8 +115,9 @@ body {
   padding: 1rem;
   border-radius: 0.5rem;
 }
-
 .filter {
+  display: flex;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 

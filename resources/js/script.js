@@ -9,6 +9,15 @@ const filterInput = document.querySelector('#filter-input');
 const filterPriority = document.querySelector('#priority-filter');
 
 // Functions
+function checkIfItems() {
+  const itemsFromStorage = getItemsFromStorage();
+  if (itemsFromStorage.length === 0) {
+    clearAll.style.display = 'none';
+  } else {
+    clearAll.style.display = 'inline-block';
+  }
+}
+
 function displayAllItems() {
   const itemsFromStorage = getItemsFromStorage();
   itemsFromStorage.forEach((i) => {
@@ -38,6 +47,7 @@ function onSubmit(e) {
   addItemToDOM(newItem, newPriority);
 
   addItemToLocalStorage(newItem, newPriority);
+  checkIfItems();
 
   document.querySelector('.form-input').value = '';
   document.querySelector('.priority-input').value = 0;
@@ -65,6 +75,7 @@ function addItemToDOM(newItem, newPriority) {
   );
   newListItem.appendChild(newDeleteButton);
   itemList.appendChild(newListItem);
+  checkIfItems();
 }
 
 function createCheckbox(divClass, iconClass) {
@@ -128,6 +139,7 @@ function removeItem(e) {
         .textContent
     );
   }
+  checkIfItems();
 }
 
 function getItemsFromStorage() {
@@ -156,14 +168,19 @@ function removeItemFromStorage(item) {
 function clearAllItems() {
   itemList.innerHTML = '';
   clearItemsFromStorage();
+  checkIfItems();
 }
 
 function clearItemsFromStorage() {
   localStorage.setItem('items', JSON.stringify([]));
 }
 
-function toggleCheckbox() {
-  checkbox.classList.toggle('checked');
+function toggleCheckbox(e) {
+  if (e.target.classList.contains('checkbox')) {
+    e.target.classList.toggle('checked');
+  } else if (e.target.parentElement.classList.contains('checkbox')) {
+    e.target.parentElement.classList.toggle('checked');
+  }
 }
 
 function filterByPriority(e) {
@@ -198,7 +215,8 @@ function filterByInput(e) {
 form.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', removeItem);
 clearAll.addEventListener('click', clearAllItems);
-checkbox.addEventListener('click', toggleCheckbox);
+itemList.addEventListener('click', toggleCheckbox);
 filterPriority.addEventListener('input', filterByPriority);
 filterInput.addEventListener('keyup', filterByInput);
+checkIfItems();
 displayAllItems();
