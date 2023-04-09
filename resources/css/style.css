@@ -132,13 +132,52 @@ body {
   border: 1.5px solid rgba(0, 0, 0, 0.1);
 }
 
+.item-text {
+  flex-grow: 1;
+}
+
 .delete-btn {
   flex-shrink: 0;
   aspect-ratio: 1/1;
   width: 2rem;
-  background-color: rgb(26, 35, 171);
+  /* background-color: rgb(26, 35, 171); */
+  background-color: rgb(171, 26, 26);
   border: 0;
   border-radius: 0.3rem;
   color: var(--clr-txt-light);
   cursor: pointer;
+}
+
+/* CHECKBOX */
+
+.checkbox {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1/1;
+  width: 1.25rem;
+  background-color: rgb(107, 107, 111);
+  border: 0;
+  border-radius: 0.3rem;
+  color: var(--clr-txt-light);
+  cursor: pointer;
+}
+
+.checkbox.checked {
+  background-color: rgb(26, 35, 171);
+}
+
+.checkbox i {
+  opacity: 0;
+}
+
+.checkbox.checked i {
+  opacity: 1;
+}
+
+.checkbox.checked + p {
+  text-decoration: line-through;
 }
