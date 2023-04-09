@@ -7,6 +7,7 @@ const checkbox = document.querySelector('.checkbox');
 const clearAll = document.querySelector('.clear');
 const filterInput = document.querySelector('#filter-input');
 const filterPriority = document.querySelector('#priority-filter');
+let isEditMode = false;
 
 // Functions
 function checkIfItems() {
@@ -42,6 +43,19 @@ function onSubmit(e) {
 
   if (validateInput(newItem, newPriority) === false) {
     return;
+  }
+
+  if (isEditMode) {
+    const itemToEdit = itemList.querySelector('.edit-mode');
+    console.log(itemToEdit.textContent);
+    removeItemFromStorage(
+      itemToEdit.firstElementChild.nextElementSibling.firstElementChild
+        .textContent
+    );
+    itemToEdit.remove();
+    isEditMode = false;
+    const addBtn = form.querySelector('.add-btn');
+    addBtn.innerHTML = 'Add';
   }
 
   addItemToDOM(newItem, newPriority);
@@ -211,11 +225,26 @@ function filterByInput(e) {
   });
 }
 
+function editItem(e) {
+  if (e.target.classList.contains('item-text')) {
+    isEditMode = true;
+    const item = e.target;
+    item.parentElement.parentElement.classList.add('edit-mode');
+    const text = e.target.textContent;
+    itemInput.value = text;
+    const addBtn = form.querySelector('.add-btn');
+    addBtn.innerHTML = 'Edit';
+  }
+}
+
 // Event Listeners
 form.addEventListener('submit', onSubmit);
+
+// Make itemList onClick-function that call separate functions
 itemList.addEventListener('click', removeItem);
-clearAll.addEventListener('click', clearAllItems);
 itemList.addEventListener('click', toggleCheckbox);
+itemList.addEventListener('dblclick', editItem);
+clearAll.addEventListener('click', clearAllItems);
 filterPriority.addEventListener('input', filterByPriority);
 filterInput.addEventListener('keyup', filterByInput);
 checkIfItems();
