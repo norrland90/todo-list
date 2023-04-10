@@ -24,8 +24,10 @@ function checkIfItems() {
 }
 
 function resetForm() {
-  document.querySelector('.form-input').value = '';
-  document.querySelector('.priority-input').value = 0;
+  itemInput.value = '';
+  priorityInput.value = '0';
+
+  filterPriority.value = '0';
 }
 
 function displayAllItems() {
@@ -57,6 +59,7 @@ function onSubmit(e) {
 
   checkIfItems();
   resetForm();
+  displayAllItems();
 }
 
 function validateInput(item, priority) {
@@ -205,6 +208,7 @@ function clearAllItems() {
   itemList.innerHTML = '';
   clearItemsFromStorage();
   checkIfItems();
+  resetForm();
 }
 
 function clearItemsFromStorage() {
@@ -255,7 +259,7 @@ function toggleCheckbox(e) {
   }
 }
 
-function filterByPriority(e) {
+function filterByPriority() {
   itemList.innerHTML = '';
   const priority = filterPriority.value;
   if (priority === '0') {
