@@ -12,9 +12,13 @@
 :root {
   /* Colors */
   --clr-primary: rgb(48, 83, 255);
+  --clr-primary-trans: rgba(48, 83, 255, 0.9);
   --clr-secondary: rgb(154, 214, 249);
+  --clr-secondary-trans: rgb(154, 214, 249, 0.9);
   --clr-txt-dark: rgb(0, 0, 0);
   --clr-txt-light: rgb(255, 255, 255);
+  --clr-btn-delete: rgb(171, 26, 26);
+  --clr-btn-delete-trans: rgba(171, 26, 26, 0.9);
 
   /* Fonts */
   --ft-family: 'Lato', sans-serif;
@@ -50,6 +54,15 @@ body {
   text-align: center;
 }
 
+.btn {
+  border: 0;
+  border-radius: 0.3rem;
+
+  color: var(--clr-txt-light);
+  font-weight: 700;
+  cursor: pointer;
+}
+
 /* MAIN FORM */
 .form {
   background-color: var(--clr-txt-light);
@@ -61,14 +74,17 @@ body {
 .form__input-container {
   display: flex;
   gap: 1rem;
+
   margin-bottom: 1rem;
 }
 
 .form-input {
   flex-grow: 1;
+
   padding: 0.5rem;
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
+
   font-family: inherit;
 }
 
@@ -86,6 +102,7 @@ body {
   padding: 0.5rem;
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
+
   font-family: inherit;
   color: var(--clr-txt-dark);
 }
@@ -93,15 +110,10 @@ body {
 .add-btn {
   padding: 0.5rem 2rem;
   background-color: var(--clr-primary);
-  color: var(--clr-txt-light);
-  border: 0;
-  border-radius: 0.3rem;
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .add-btn:hover {
-  background-color: rgba(48, 83, 255, 0.9);
+  background-color: var(--clr-primary-trans);
 }
 
 /* ITEMS */
@@ -118,6 +130,7 @@ body {
 .filter {
   display: flex;
   gap: 1rem;
+
   margin-bottom: 2rem;
 }
 
@@ -131,6 +144,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+
   background-color: var(--clr-secondary);
   padding: 0.5rem 1rem;
   border-radius: 0.3rem;
@@ -145,8 +159,7 @@ body {
   flex-shrink: 0;
   aspect-ratio: 1/1;
   width: 2rem;
-  /* background-color: rgb(26, 35, 171); */
-  background-color: rgb(171, 26, 26);
+  background-color: var(--clr-btn-delete);
   border: 0;
   border-radius: 0.3rem;
   color: var(--clr-txt-light);
@@ -154,7 +167,7 @@ body {
 }
 
 .delete-btn:hover {
-  background-color: rgba(171, 26, 26, 0.8);
+  background-color: var(--clr-btn-delete-trans);
 }
 
 /* CHECKBOX */
@@ -202,9 +215,10 @@ body {
   display: block;
   margin-top: 2rem;
   border: 0;
-  background-color: rgba(171, 26, 26, 0);
+  background-color: transparent;
+
+  color: var(--clr-btn-delete);
   cursor: pointer;
-  color: rgb(171, 26, 26);
 }
 
 .clear:hover {
@@ -223,27 +237,30 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -1;
+
   width: 100vw;
   height: 100vh;
-  background-color: rgba(154, 214, 249, 0.8);
+  background-color: var(--clr-secondary-trans);
   opacity: 0;
+
   transition: opacity 200ms ease-in-out;
-  z-index: -1;
 }
 
 .box-container.show {
-  opacity: 1;
   z-index: 10;
+  opacity: 1;
 }
 
 .box {
+  background-color: var(--clr-txt-light);
   width: 20rem;
   height: 10rem;
   padding: 2rem 0;
-  background-color: var(--clr-txt-light);
 
   text-align: center;
   border-radius: 1rem;
@@ -264,35 +281,24 @@ body {
 .box-btn {
   width: 5rem;
   padding: 0.5rem 0;
-  color: var(--clr-txt-light);
-  border: 0;
-  border-radius: 0.3rem;
-  font-weight: 700;
-  cursor: pointer;
 }
 
-.confirm-box {
-  display: none;
-}
-
-.confirm-box.show {
-  display: block;
-}
-
+.confirm-box,
 .alert-box {
   display: none;
 }
 
+.confirm-box.show,
 .alert-box.show {
   display: block;
 }
 
 .box-btn--no {
-  background-color: rgb(171, 26, 26);
+  background-color: var(--clr-btn-delete);
 }
 
 .box-btn--no:hover {
-  background-color: rgba(171, 26, 26, 0.9);
+  background-color: var(--clr-btn-delete-trans);
 }
 
 .box-btn--yes {
@@ -304,9 +310,9 @@ body {
 }
 
 .box-btn--ok {
-  background-color: rgb(48, 83, 255);
+  background-color: var(--clr-primary);
 }
 
 .box-btn--ok:hover {
-  background-color: rgba(48, 83, 255, 0.9);
+  background-color: var(--clr-primary-trans);
 }

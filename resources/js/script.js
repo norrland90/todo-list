@@ -36,22 +36,6 @@ function displayAllItems() {
   });
 }
 
-function validateInput(item, priority) {
-  if (item === '' || priority === '0') {
-    boxContainer.classList.add('show');
-    boxContainer.firstElementChild.nextElementSibling.classList.add('show');
-    okBtn.addEventListener('click', () => {
-      boxContainer.classList.remove('show');
-      boxContainer.firstElementChild.nextElementSibling.classList.remove(
-        'show'
-      );
-    });
-    return false;
-  } else {
-    return true;
-  }
-}
-
 function onSubmit(e) {
   e.preventDefault();
 
@@ -70,34 +54,25 @@ function onSubmit(e) {
   addItemToDOM(newItem, newPriority);
 
   addItemToLocalStorage(newItem, newPriority);
+
   checkIfItems();
-
   resetForm();
 }
 
-function editItem(newItem, newPriority) {
-  const itemToEdit = itemList.querySelector('.edit-mode');
-  const itemText =
-    itemToEdit.firstElementChild.nextElementSibling.firstElementChild
-      .textContent;
-  const itemsFromStorage = getItemsFromStorage();
-  itemsFromStorage.forEach((item, index) => {
-    if (item[0] === itemText) {
-      itemsFromStorage[index][0] = newItem;
-      itemsFromStorage[index][1] = newPriority;
-      console.log('test');
-    }
-  });
-  localStorage.setItem('items', JSON.stringify(itemsFromStorage));
-  endEditMode();
-  displayAllItems();
-  resetForm();
-}
-
-function endEditMode() {
-  isEditMode = false;
-  const addBtn = form.querySelector('.add-btn');
-  addBtn.innerHTML = 'Add';
+function validateInput(item, priority) {
+  if (item === '' || priority === '0') {
+    boxContainer.classList.add('show');
+    boxContainer.firstElementChild.nextElementSibling.classList.add('show');
+    okBtn.addEventListener('click', () => {
+      boxContainer.classList.remove('show');
+      boxContainer.firstElementChild.nextElementSibling.classList.remove(
+        'show'
+      );
+    });
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function addItemToDOM(newItem, newPriority) {
@@ -236,6 +211,42 @@ function clearItemsFromStorage() {
   localStorage.setItem('items', JSON.stringify([]));
 }
 
+function startEditMode(e) {
+  if (e.target.classList.contains('item-text')) {
+    isEditMode = true;
+    const item = e.target;
+    item.parentElement.parentElement.classList.add('edit-mode');
+    const text = e.target.textContent;
+    itemInput.value = text;
+    const addBtn = form.querySelector('.add-btn');
+    addBtn.innerHTML = 'Edit';
+  }
+}
+
+function editItem(newItem, newPriority) {
+  const itemToEdit = itemList.querySelector('.edit-mode');
+  const itemText =
+    itemToEdit.firstElementChild.nextElementSibling.firstElementChild
+      .textContent;
+  const itemsFromStorage = getItemsFromStorage();
+  itemsFromStorage.forEach((item, index) => {
+    if (item[0] === itemText) {
+      itemsFromStorage[index][0] = newItem;
+      itemsFromStorage[index][1] = newPriority;
+    }
+  });
+  localStorage.setItem('items', JSON.stringify(itemsFromStorage));
+  endEditMode();
+  displayAllItems();
+  resetForm();
+}
+
+function endEditMode() {
+  isEditMode = false;
+  const addBtn = form.querySelector('.add-btn');
+  addBtn.innerHTML = 'Add';
+}
+
 function toggleCheckbox(e) {
   if (e.target.classList.contains('checkbox')) {
     e.target.classList.toggle('checked');
@@ -272,22 +283,8 @@ function filterByInput(e) {
   });
 }
 
-function startEditMode(e) {
-  if (e.target.classList.contains('item-text')) {
-    isEditMode = true;
-    const item = e.target;
-    item.parentElement.parentElement.classList.add('edit-mode');
-    const text = e.target.textContent;
-    itemInput.value = text;
-    const addBtn = form.querySelector('.add-btn');
-    addBtn.innerHTML = 'Edit';
-  }
-}
-
 // Event Listeners
 form.addEventListener('submit', onSubmit);
-
-// Make itemList onClick-function that call separate functions
 itemList.addEventListener('click', removeItem);
 itemList.addEventListener('click', toggleCheckbox);
 itemList.addEventListener('dblclick', startEditMode);
