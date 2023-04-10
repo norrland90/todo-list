@@ -264,6 +264,22 @@ body {
   cursor: pointer;
 }
 
+.confirm-box {
+  display: none;
+}
+
+.confirm-box.show {
+  display: block;
+}
+
+.alert-box {
+  display: none;
+}
+
+.alert-box.show {
+  display: block;
+}
+
 .box-btn--no {
   background-color: rgb(171, 26, 26);
 }

@@ -7,6 +7,10 @@ const checkbox = document.querySelector('.checkbox');
 const clearAll = document.querySelector('.clear');
 const filterInput = document.querySelector('#filter-input');
 const filterPriority = document.querySelector('#priority-filter');
+const boxContainer = document.querySelector('.box-container');
+const okBtn = boxContainer.querySelector('#ok-btn');
+const falseBtn = boxContainer.querySelector('#false-btn');
+const trueBtn = boxContainer.querySelector('#true-btn');
 let isEditMode = false;
 
 // Functions
@@ -34,7 +38,14 @@ function displayAllItems() {
 
 function validateInput(item, priority) {
   if (item === '' || priority === '0') {
-    alert('You must add and item and priority');
+    boxContainer.style.display = 'flex';
+    boxContainer.firstElementChild.nextElementSibling.classList.add('show');
+    okBtn.addEventListener('click', () => {
+      boxContainer.style.display = 'none';
+      boxContainer.firstElementChild.nextElementSibling.classList.remove(
+        'show'
+      );
+    });
     return false;
   } else {
     return true;
@@ -201,14 +212,24 @@ function removeItemFromStorage(item) {
   localStorage.setItem('items', JSON.stringify(newItemsFromStorage));
 }
 
+function onClearAllClick() {
+  boxContainer.style.display = 'flex';
+  boxContainer.firstElementChild.classList.add('show');
+  trueBtn.addEventListener('click', () => {
+    clearAllItems();
+    boxContainer.style.display = 'none';
+    boxContainer.firstElementChild.classList.remove('show');
+  });
+  falseBtn.addEventListener('click', () => {
+    boxContainer.style.display = 'none';
+    boxContainer.firstElementChild.classList.remove('show');
+  });
+}
+
 function clearAllItems() {
-  if (confirm('Are you sure?')) {
-    itemList.innerHTML = '';
-    clearItemsFromStorage();
-    checkIfItems();
-  } else {
-    return;
-  }
+  itemList.innerHTML = '';
+  clearItemsFromStorage();
+  checkIfItems();
 }
 
 function clearItemsFromStorage() {
@@ -270,7 +291,7 @@ form.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', removeItem);
 itemList.addEventListener('click', toggleCheckbox);
 itemList.addEventListener('dblclick', startEditMode);
-clearAll.addEventListener('click', clearAllItems);
+clearAll.addEventListener('click', onClearAllClick);
 filterPriority.addEventListener('input', filterByPriority);
 filterInput.addEventListener('keyup', filterByInput);
 checkIfItems();
