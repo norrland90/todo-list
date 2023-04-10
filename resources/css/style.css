@@ -216,3 +216,74 @@ body {
   font-style: italic;
   opacity: 0.5;
 }
+
+/* CONFIRM AND ALERT BUTTONS */
+
+.box-container {
+  display: none;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(154, 214, 249, 0.8);
+}
+
+.box {
+  width: 20rem;
+  height: 10rem;
+  padding: 2rem 0;
+  background-color: var(--clr-txt-light);
+
+  text-align: center;
+  border-radius: 1rem;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.box-text {
+  margin-bottom: 2rem;
+}
+
+.box-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.box-btn {
+  width: 5rem;
+  padding: 0.5rem 0;
+  color: var(--clr-txt-light);
+  border: 0;
+  border-radius: 0.3rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.box-btn--no {
+  background-color: rgb(171, 26, 26);
+}
+
+.box-btn--no:hover {
+  background-color: rgba(171, 26, 26, 0.9);
+}
+
+.box-btn--yes {
+  background-color: rgb(21, 144, 10);
+}
+
+.box-btn--yes:hover {
+  background-color: rgba(21, 144, 10, 0.9);
+}
+
+.box-btn--ok {
+  background-color: rgb(48, 83, 255);
+}
+
+.box-btn--ok:hover {
+  background-color: rgba(48, 83, 255, 0.9);
+}
