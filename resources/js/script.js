@@ -19,6 +19,11 @@ function checkIfItems() {
   }
 }
 
+function resetForm() {
+  document.querySelector('.form-input').value = '';
+  document.querySelector('.priority-input').value = 0;
+}
+
 function displayAllItems() {
   itemList.innerHTML = '';
   const itemsFromStorage = getItemsFromStorage();
@@ -56,8 +61,7 @@ function onSubmit(e) {
   addItemToLocalStorage(newItem, newPriority);
   checkIfItems();
 
-  document.querySelector('.form-input').value = '';
-  document.querySelector('.priority-input').value = 0;
+  resetForm();
 }
 
 function editItem(newItem, newPriority) {
@@ -76,8 +80,7 @@ function editItem(newItem, newPriority) {
   localStorage.setItem('items', JSON.stringify(itemsFromStorage));
   endEditMode();
   displayAllItems();
-  document.querySelector('.form-input').value = '';
-  document.querySelector('.priority-input').value = 0;
+  resetForm();
 }
 
 function endEditMode() {
