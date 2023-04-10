@@ -202,9 +202,13 @@ function removeItemFromStorage(item) {
 }
 
 function clearAllItems() {
-  itemList.innerHTML = '';
-  clearItemsFromStorage();
-  checkIfItems();
+  if (confirm('Are you sure?')) {
+    itemList.innerHTML = '';
+    clearItemsFromStorage();
+    checkIfItems();
+  } else {
+    return;
+  }
 }
 
 function clearItemsFromStorage() {
