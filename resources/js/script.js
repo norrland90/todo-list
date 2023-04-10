@@ -20,6 +20,7 @@ function checkIfItems() {
 }
 
 function displayAllItems() {
+  itemList.innerHTML = '';
   const itemsFromStorage = getItemsFromStorage();
   itemsFromStorage.forEach((i) => {
     addItemToDOM(i[0], i[1]);
@@ -46,16 +47,8 @@ function onSubmit(e) {
   }
 
   if (isEditMode) {
-    const itemToEdit = itemList.querySelector('.edit-mode');
-    console.log(itemToEdit.textContent);
-    removeItemFromStorage(
-      itemToEdit.firstElementChild.nextElementSibling.firstElementChild
-        .textContent
-    );
-    itemToEdit.remove();
-    isEditMode = false;
-    const addBtn = form.querySelector('.add-btn');
-    addBtn.innerHTML = 'Add';
+    editItem(newItem, newPriority);
+    return;
   }
 
   addItemToDOM(newItem, newPriority);
@@ -65,6 +58,32 @@ function onSubmit(e) {
 
   document.querySelector('.form-input').value = '';
   document.querySelector('.priority-input').value = 0;
+}
+
+function editItem(newItem, newPriority) {
+  const itemToEdit = itemList.querySelector('.edit-mode');
+  const itemText =
+    itemToEdit.firstElementChild.nextElementSibling.firstElementChild
+      .textContent;
+  const itemsFromStorage = getItemsFromStorage();
+  itemsFromStorage.forEach((item, index) => {
+    if (item[0] === itemText) {
+      itemsFromStorage[index][0] = newItem;
+      itemsFromStorage[index][1] = newPriority;
+      console.log('test');
+    }
+  });
+  localStorage.setItem('items', JSON.stringify(itemsFromStorage));
+  endEditMode();
+  displayAllItems();
+  document.querySelector('.form-input').value = '';
+  document.querySelector('.priority-input').value = 0;
+}
+
+function endEditMode() {
+  isEditMode = false;
+  const addBtn = form.querySelector('.add-btn');
+  addBtn.innerHTML = 'Add';
 }
 
 function addItemToDOM(newItem, newPriority) {
@@ -225,7 +244,7 @@ function filterByInput(e) {
   });
 }
 
-function editItem(e) {
+function startEditMode(e) {
   if (e.target.classList.contains('item-text')) {
     isEditMode = true;
     const item = e.target;
@@ -243,7 +262,7 @@ form.addEventListener('submit', onSubmit);
 // Make itemList onClick-function that call separate functions
 itemList.addEventListener('click', removeItem);
 itemList.addEventListener('click', toggleCheckbox);
-itemList.addEventListener('dblclick', editItem);
+itemList.addEventListener('dblclick', startEditMode);
 clearAll.addEventListener('click', clearAllItems);
 filterPriority.addEventListener('input', filterByPriority);
 filterInput.addEventListener('keyup', filterByInput);
