@@ -38,10 +38,10 @@ function displayAllItems() {
 
 function validateInput(item, priority) {
   if (item === '' || priority === '0') {
-    boxContainer.style.display = 'flex';
+    boxContainer.classList.add('show');
     boxContainer.firstElementChild.nextElementSibling.classList.add('show');
     okBtn.addEventListener('click', () => {
-      boxContainer.style.display = 'none';
+      boxContainer.classList.remove('show');
       boxContainer.firstElementChild.nextElementSibling.classList.remove(
         'show'
       );
@@ -213,15 +213,15 @@ function removeItemFromStorage(item) {
 }
 
 function onClearAllClick() {
-  boxContainer.style.display = 'flex';
+  boxContainer.classList.add('show');
   boxContainer.firstElementChild.classList.add('show');
   trueBtn.addEventListener('click', () => {
     clearAllItems();
-    boxContainer.style.display = 'none';
+    boxContainer.classList.remove('show');
     boxContainer.firstElementChild.classList.remove('show');
   });
   falseBtn.addEventListener('click', () => {
-    boxContainer.style.display = 'none';
+    boxContainer.classList.remove('show');
     boxContainer.firstElementChild.classList.remove('show');
   });
 }
